@@ -85,5 +85,13 @@ This is the place for you to write reflections:
 ### Mandatory (Subscriber) Reflections
 
 #### Reflection Subscriber-1
+1. Alasan kita menggunakan Read Write Lock dibanding dengan MUTEX pada kasus ini adalah Rwlock dibuat untuk mengakomodasi banyak baca sekaligus sedangkan mutex hanya memperbolehkan 1 thread yang menggunakan variabel saat suatu waktu sehingga pada kasus ini lebih cocok karena vector Notifications akan dibaca oleh banyak thread sekaligus tanpa penulisan. Jika digunakan mutex maka hal tersebut tidak memungkikan untuk dilakukan.
+
+2. lazy_static berfungsi untuk membuat suatu variabel menjadi singleton dimana artinya variabel tersebut hanya akan ada 1 dalam program tersebut. Selain itu variabel static di rust dibuat immutable oleh rust tidak seperti di Java yang bisa berubah-ubah datanya untuk menjamin thread safety saat multi threading. 
 
 #### Reflection Subscriber-2
+1. Menurut saya, lib.rs berisikan informasi-informasi yang diperlukan oleh bagian-bagian pada aplikasi lainnya. Seperti Error Response, root URL dan singleton dari App Configuration.
+
+2. Ya, dikarenakan desain penulisan kode yang telah dilakukan, penambahan jenis observer baru akan lebih mudah ditambahkan karena program bersifat open close untuk perubahan tersebut. Untuk kasus instansiasi lebih dari 1 Main App, tetap bisa dilakukan karena tinggal masalah mendaftarkan subscriber terhadap aplikasi yang berbeda dengan cara meng-hit API yang sesuai.
+
+3. Ya, menurut saya sangat berguna. Dengan adanya testing atau collection Postman, kita jadi bisa mengetahui kebenaran program kita. Collection Postman juga membantu dalam memverifikasi apakah program mengirimkan response dan berjalan sesuai dengan harapan kita atau tidak karena menggunakan data asli pada aplikasinya.
